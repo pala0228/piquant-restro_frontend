@@ -1,0 +1,89 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.restaurants {
+  &__image {
+    width: 100%;
+    height: 230px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-blend-mode: multiply;
+    background-origin: border-box;
+  }
+  &__image-avatar {
+    background-size: cover;
+    float: left;
+  }
+  &__rating-good {
+    color: white;
+    font-weight: $normal;
+    padding: 0px 4px;
+    background-color: $success;
+  }
+  &__offer {
+    color: map-get($slate, 17);
+    font-weight: $normal;
+  }
+  &__cursor-pointer {
+    cursor: pointer;
+  }
+  &__hide-action-buttons {
+    display: none;
+  }
+  &__show-action-buttons:hover &__hide-action-buttons {
+    display: block;
+  }
+  &__show-action-buttons:hover {
+    box-shadow: 0 0 10px rgb(199, 205, 213, 0.8);
+  }
+  &__over-flow {
+    max-height: 310px;
+    overflow-y: auto;
+  }
+  &__over-flow-gt-sm {
+    max-height: calc(100% - 70px);
+    overflow-y: auto;
+  }
+  &__card {
+    position: relative;
+    overflow: hidden;
+    height: fit-content;
+  }
+  &__badge {
+    background: map-get($slate, 11);
+    color: $white;
+    font-size: 0.9rem;
+    padding: 5px;
+    font-weight: normal;
+    width: 11rem;
+    position: absolute;
+    transform: rotate(45deg) translate(3.3rem, -1.7rem);
+    transform-origin: center;
+    top: 0;
+    right: 0;
+    text-align: center;
+  }
+  &__max-height-width {
+    min-height: 472px;
+    max-height: 472px;
+  }
+}
+
+:host {
+  ::ng-deep {
+    .mat-card-header {
+      height: 80px;
+    }
+    .mat-card-actions .mat-stroked-button:first-child {
+      margin-right: 8px;
+    }
+    .mat-card-actions .mat-stroked-button:last-child {
+      margin-right: 0px;
+    }
+  }
+}
+.div-size {
+  width: inherit;
+  height: inherit;
+}

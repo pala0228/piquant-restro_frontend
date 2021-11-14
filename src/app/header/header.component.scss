@@ -1,0 +1,30 @@
+@import "../../assets/styles/abstracts/variables.scss";
+@import "../../assets/styles/abstracts/functions.scss";
+
+.header {
+  &__spacer {
+    flex: 1 1 auto;
+  }
+  &__menu-item {
+    font-size: 1rem;
+    font-weight: $normal;
+  }
+  &__menu-item:hover,
+  &__menu-item:active {
+    color: map-get($slate, 15);
+  }
+  &__menu-item-active {
+    color: map-get($slate, 15);
+  }
+  &__logo {
+    cursor: pointer;
+  }
+}
+.mat-toolbar {
+  background-color: $white;
+  height: 76px;
+  border-bottom: 2px solid map-get($slate, 16);
+}
+.mat-icon {
+  font-size: 1.3rem;
+}

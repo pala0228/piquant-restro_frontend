@@ -1,0 +1,14 @@
+@import "../../../../assets/styles/abstracts/functions.scss";
+@import "../../../../assets/styles/abstracts/variables.scss";
+
+:host {
+  ::ng-deep {
+    .mat-card-content {
+      font-size: 15px;
+    }
+  }
+}
+.timer {
+  color: $danger;
+  font-weight: $bold;
+}

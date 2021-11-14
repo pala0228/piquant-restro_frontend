@@ -1,0 +1,11 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.biograpy {
+  &__header {
+    font-size: 1.3rem;
+  }
+  &__font-italic {
+    font-style: italic;
+  }
+}

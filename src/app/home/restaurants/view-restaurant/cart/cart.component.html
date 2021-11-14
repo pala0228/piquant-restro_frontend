@@ -1,0 +1,26 @@
+<div class="cart page-container" fxLayout="column" fxLayoutGap="2rem">
+  <div class="cart__title" fxLayout="column" fxLayoutAlign="start start">
+    <div>
+      <mat-card-title>
+        Cart
+      </mat-card-title>
+    </div>
+    <div>
+      <sub>{{cartItems?.length}} items</sub>
+    </div>
+  </div>
+  <div class="cart__items">
+    <div *ngFor="let item of cartItems" class="u-margin-bottom-12">
+      <app-cart-item [item]="item"></app-cart-item>
+    </div>
+  </div>
+  <div *ngIf="cartItems.length > 0" fxLayoutAlign="center end" fxLayout="row">
+    <div class="cart__checkout-title">
+      <button [matTooltip]="'Checkout cart items'" (click)="onCheckout()" class="cart__checkout-button"
+        mat-raised-button color="accent">
+        <mat-icon>add_shopping_cart</mat-icon> Cart Checkout
+        <mat-icon class="cart__checkout-widget">arrow_forward</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

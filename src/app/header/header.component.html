@@ -1,0 +1,92 @@
+<div class="header">
+  <mat-toolbar>
+    <div fxHide.gt-sm>
+      <button mat-icon-button (click)="openSideNav()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+    <!-- logo image  -->
+    <div class="header__logo" [ngClass.lt-sm]="'u-align-right u-width-100'" (click)="naviageToHome()">
+      <img src="../../assets/images/logo.png" alt="Logo" />
+    </div>
+
+    <!-- space divider  -->
+    <span class="header__spacer"></span>
+
+    <!-- menu items  -->
+    <div fxHide.lt-sm fxLayout="row" fxLayoutAlign="start center">
+      <div *ngIf="!userIsAuthenticated">
+        <button mat-button routerLink="/home" [ngClass]="{'header__menu-item-active': activeRoute.includes('/home')}"
+          class="header__menu-item" [matTooltip]="'View restaurants'">
+          <mat-icon>home</mat-icon>{{'Home' | translate}}
+        </button>
+      </div>
+      <div *ngIf="userIsAuthenticated && hasRestaurantsAccess">
+        <button mat-button routerLink="/restaurants"
+          [ngClass]="{'header__menu-item-active': activeRoute.includes('/restaurants') && activeRoute.indexOf('/add-restaurant') === -1}"
+          class="header__menu-item" [matTooltip]="'View restaurants'">
+          <mat-icon>restaurant</mat-icon>Restaurants
+        </button>
+      </div>
+      <div *ngIf="userIsAuthenticated && hasAddRestaurantAccess">
+        <button mat-button (click)="navigateTo('restaurants', 'add-restaurant')" [matTooltip]="'Add new restaurant'"
+          [ngClass]="{'header__menu-item-active': activeRoute.includes('add-restaurant')}" class="header__menu-item">
+          <mat-icon>add</mat-icon>Add Restaurant
+        </button>
+      </div>
+      <div *ngIf="userIsAuthenticated && hasOrdersAccess">
+        <button mat-button routerLink="/placed-orders" routerLinkActive="header__menu-item-active"
+          class="header__menu-item" [matTooltip]="'View placed orders'">
+          <mat-icon>email</mat-icon>Orders
+        </button>
+      </div>
+      <div *ngIf="!userIsAuthenticated">
+        <button mat-button routerLink="/login" [matTooltip]="'Login'" routerLinkActive="header__menu-item-active"
+          class="header__menu-item">
+          <mat-icon>login</mat-icon>Login
+        </button>
+      </div>
+      <div *ngIf="!userIsAuthenticated">
+        <button mat-button routerLink="/signup" [matTooltip]="'Register new account'"
+          routerLinkActive="header__menu-item-active" class="header__menu-item">
+          <mat-icon>person</mat-icon>Signup
+        </button>
+      </div>
+      <div *ngIf="userIsAuthenticated && hasCartAccess">
+        <button [matTooltip]="'View cart items'" [disabled]="cartItemsCounter > 0 ? false : true" mat-icon-button
+          (click)="navigateToCheckout()" [ngClass]="{'header__menu-item-active': activeRoute.includes('checkout')}"
+          class="header__menu-item">
+          <mat-icon [matBadge]="cartItemsCounter" matBadgePosition="after" matBadgeColor="accent">add_shopping_cart
+          </mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- right side menu items  -->
+    <div fxHide.lt-sm fxLayout="row" fxLayoutAlign="start center">
+      <div *ngIf="userIsAuthenticated" class="u-margin-left-24">
+        <button mat-icon-button class="header__menu-item" [matTooltip]="'User settings'"
+          [ngClass]="{'header__menu-item-active': activeRoute.includes('customer')}" [matMenuTriggerFor]="settingsMenu">
+          <mat-icon>settings</mat-icon>
+        </button>
+        <mat-menu #settingsMenu="matMenu" xPosition="before">
+          <ng-template matMenuContent>
+            <button [ngClass]="{'header__menu-item-active': activeRoute.includes('user-profile')}" mat-menu-item
+              (click)="navigateTo('customer', 'user-profile')">
+              <mat-icon>person</mat-icon>User Profile
+            </button>
+            <button [ngClass]="{'header__menu-item-active': activeRoute.includes('password-management')}" mat-menu-item
+              (click)="navigateTo('customer', 'password-management')">
+              <mat-icon>password</mat-icon>Password Management
+            </button>
+          </ng-template>
+        </mat-menu>
+      </div>
+      <div *ngIf="userIsAuthenticated">
+        <button mat-button mat-icon-button (click)="onLogout()" routerLinkActive="header__menu-item-active"
+          class="header__menu-item" [matTooltip]="'Logout'">
+          <mat-icon>power_settings_new</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

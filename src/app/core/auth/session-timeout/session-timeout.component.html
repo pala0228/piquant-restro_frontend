@@ -1,0 +1,36 @@
+<div class="session-timeout">
+  <mat-card class="mat-elevation-z8">
+    <!-- header title  -->
+    <mat-card-header fxLayoutAlign="center center">
+      <mat-card-title>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div>
+            <mat-icon style="color: red;">warning</mat-icon>
+          </div>
+          <div>
+            Session time out alert
+          </div>
+        </div>
+      </mat-card-title>
+    </mat-card-header>
+    <!-- content starts  -->
+    <mat-card-content fxLayout="column">
+      <div fxLayout="row wrap">
+        Page has been idle for {{data.idleTime}}. You will
+        automatically be logged out in
+      </div>
+      <div class="u-align-center timer u-padding-top-24 u-padding-bottom-24">
+        {{data.timer}}
+      </div>
+      <div fxLayout="row wrap">
+        Do you wish to continue with the page? Click 'Continue' to keep the
+        session active.
+      </div>
+    </mat-card-content>
+    <!-- actions buttons  -->
+    <mat-card-actions class="u-margin-top-16" fxLayoutAlign="center center">
+      <button type="button" (click)="continue()" color="accent" mat-raised-button
+        matTooltip="Continue session">Continue</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

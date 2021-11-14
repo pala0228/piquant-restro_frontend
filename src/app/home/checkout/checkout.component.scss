@@ -1,0 +1,30 @@
+.checkout {
+  &__cursor-pointer {
+    cursor: pointer;
+  }
+}
+:host {
+  ::ng-deep {
+    .cart-items__content-hide-and-show,
+    .payment__content-hide-and-show {
+      display: none;
+    }
+  }
+}
+:host {
+  .open {
+    ::ng-deep {
+      .cart-items__content-hide-and-show,
+      .payment__content-hide-and-show {
+        display: block;
+      }
+    }
+  }
+  .close {
+    ::ng-deep {
+      .checkout__hide-padding-bottom {
+        padding-bottom: 0px;
+      }
+    }
+  }
+}

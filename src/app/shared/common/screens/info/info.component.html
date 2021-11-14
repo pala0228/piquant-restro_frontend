@@ -1,0 +1,30 @@
+<div *ngIf="showScreen" class="info u-margin-top-8 u-margin-bottom-12">
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="info__container u-padding-8" [ngClass]="{
+    'info__success': status === 'success',
+    'info__error': status === 'error',
+    'info__warning': status === 'warning',
+    'info__information': status === 'info'
+  }">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <div class="info__icon u-margin-left-8" [ngClass]="{
+          'info__icon__success': status === 'success',
+          'info__icon__error': status === 'error',
+          'info__icon__warning': status === 'warning',
+          'info__icon__information': status === 'info'
+        }">
+        <mat-icon *ngIf="status === 'success'">check_circle_outline</mat-icon>
+        <mat-icon *ngIf="status === 'error'">error</mat-icon>
+        <mat-icon *ngIf="status === 'warning'">warning</mat-icon>
+        <mat-icon *ngIf="status === 'info'">info</mat-icon>
+      </div>
+      <div fxLayout="row wrap" class="info__text-align">
+        <span>{{message}}</span>
+      </div>
+    </div>
+    <div fxLayoutAlign="end center" class="u-margin-right-8">
+      <span class="info__close-icon" (click)="onClear()">
+        <mat-icon>clear</mat-icon>
+      </span>
+    </div>
+  </div>
+</div>

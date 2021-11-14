@@ -1,0 +1,12 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.tech-skills {
+  &__header {
+    font-size: 1.3rem;
+  }
+  &__text {
+    width: 70px;
+    display: inline-block;
+  }
+}

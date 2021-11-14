@@ -1,0 +1,72 @@
+<div class="view-items page-container" ngStyle.lt-sm="padding: 0px" fxLayout="column" fxLayoutGap.lt-sm="1rem"
+  fxLayoutGap.gt-sm="2.5rem">
+  <!-- page title starts  -->
+  <div class="page-title-widget">
+    <div class="page-title page-title-align">Ordered Items</div>
+    <div fxLayoutAlign="end end">
+      <button matTooltip="Close dialog menu" type="button" (click)="onClose()" color="accent" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <!-- pate content starts  -->
+  <div class="mat-elevation-z8" style="position: relative;">
+    <div ngClass.gt-sm="view-items__container" ngClass.lt-sm="view-items__mobile-view">
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- srNo Column -->
+        <ng-container matColumnDef="srNo" sticky>
+          <th mat-header-cell *matHeaderCellDef [ngClass]="'mat-table-sticky-border-elem-right'"> S.No </th>
+          <td mat-cell *matCellDef="let row"> {{row.srNo}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- itemName Column -->
+        <ng-container matColumnDef="itemName">
+          <th mat-header-cell *matHeaderCellDef> Item Name </th>
+          <td mat-cell *matCellDef="let row"> {{row.itemName}}</td>
+          <td mat-footer-cell *matFooterCellDef>Total</td>
+        </ng-container>
+
+        <!-- itemPrice Column -->
+        <ng-container matColumnDef="itemPrice">
+          <th mat-header-cell *matHeaderCellDef> Item Price </th>
+          <td mat-cell *matCellDef="let row"> {{row.itemPrice | currency:'INR'}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- itemQuantity Column -->
+        <ng-container matColumnDef="itemQuantity">
+          <th mat-header-cell *matHeaderCellDef> Item Quantity </th>
+          <td mat-cell *matCellDef="let row"> {{row.itemQuantity}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <!-- itemTotalPrice Column -->
+        <ng-container matColumnDef="itemTotalPrice" stickyEnd>
+          <th mat-header-cell *matHeaderCellDef> Item Total Price </th>
+          <td mat-cell *matCellDef="let row"> {{row.itemTotalPrice | currency: 'INR'}}
+          </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalCostSum() | currency:'INR'}}
+          </td>
+        </ng-container>
+
+        <!-- no data found column  -->
+        <ng-container matColumnDef="noData">
+          <td mat-footer-cell fxLayoutAlign="center center" *matFooterCellDef colspan="5"
+            [ngClass]="'view-items__noData'">
+            No ordered items found
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-footer-row *matFooterRowDef="['noData']"
+          [ngClass]="{ 'view-items__hide': tableState !==  TABLE_STATE().NODATAFOUND}">
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

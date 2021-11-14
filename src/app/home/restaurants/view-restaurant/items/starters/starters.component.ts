@@ -1,0 +1,274 @@
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { WebsocketIoService } from 'src/app/home/websocket-io.service';
+import { ACTION_TYPE, CONNECTION_TYPE, ITEM_CATEGORY } from 'src/app/shared/common/constants';
+import { SharedService } from 'src/app/shared/shared.service';
+import { Item } from '../../../restaurants.model';
+import { RestaurantsService } from '../../../restaurants.service';
+import { CartService } from '../../cart.service';
+import { FetchItemsResponse, ItemCRUDResponse } from '../../view-restaurant.model';
+import { ViewRestaurantService } from '../../view-restaurant.service';
+
+@Component({
+  selector: 'app-starters',
+  templateUrl: './starters.component.html',
+  styleUrls: ['./starters.component.scss']
+})
+export class StartersComponent implements OnInit, OnDestroy {
+  /**
+   * @ignore
+   */
+  idSubscription: Subscription;
+  /**
+   * @ignore
+   */
+  restaurantId: string;
+  /**
+   * @ignore
+   */
+  starters: Array<Item> = [];
+  /**
+   * @ignore
+   */
+  public get ITEM_CATEGORY(): typeof ITEM_CATEGORY {
+    return ITEM_CATEGORY;
+  }
+  /**
+   * @ignore
+   */
+  public get CONNECTION_TYPE(): typeof CONNECTION_TYPE {
+    return CONNECTION_TYPE;
+  }
+  /**
+   * @ignore
+   */
+  public get ACTION_TYPE(): typeof ACTION_TYPE {
+    return ACTION_TYPE;
+  }
+  /**
+   * @ignore
+   */
+  qtySubscription: Subscription;
+  /**
+   * @ignore
+   */
+  cartItemsMap = new Map();
+  /**
+   * @ignore
+   * Flag to show info screen component
+   */
+  showScreen: boolean = false;
+  /**
+   * @ignore
+   * To show messsage on the info screen component
+   */
+  message = '';
+  /**
+   * @ignore
+   * To change message view(error/success/info/warning)
+   */
+  status = '';
+  /**
+   * @ignore
+   * Flag to switch full loader on/off
+   */
+  activeFullLoader = false;
+
+  constructor(
+    private restaurantsService: RestaurantsService,
+    private websocketIoService: WebsocketIoService,
+    private viewRestaurantService: ViewRestaurantService,
+    private cartService: CartService,
+    private sharedService: SharedService
+  ) { }
+
+  ngOnInit() {
+    // get restaurant Id
+    this.idSubscription = this.restaurantsService.getRestaurantId().subscribe((id) => {
+      this.restaurantId = id;
+    });
+    // get starters by restaurant Id
+    if (this.restaurantId) {
+      this.getStarters(this.restaurantId, ITEM_CATEGORY.STARTERS);
+    }
+    // listen to server and get data based on connection and action type (web socket server)
+    this.websocketIoService.listenToServer(CONNECTION_TYPE.ITEM).subscribe((data) => {
+      if (data.item.itemCategory === ITEM_CATEGORY.STARTERS) {
+        switch (data.action) {
+          case ACTION_TYPE.CREATE:
+            this.addItem(data.item);
+            break;
+          case ACTION_TYPE.UPDATE:
+            this.updateItem(data.item);
+            break;
+        }
+      }
+    });
+    // update qty as per action made in cart item for quantity on live
+    this.qtySubscription = this.cartService.getUpdatedQtyListener().subscribe((data) => {
+      this.starters.map((item) => {
+        if (item.id === data.itemId) {
+          item.itemQuantity = data.quantity;
+        }
+      })
+    });
+    // update starters quantity and total price as per cart items if exist
+    this.cartItemsMap = this.cartService.getitems();
+    let cartItems = [];
+    if (this.cartItemsMap.size > 0) {
+      for (let [key, value] of this.cartItemsMap) {
+        if (value.itemCategory === ITEM_CATEGORY.STARTERS) {
+          cartItems.push(value);
+        }
+      }
+      if (cartItems.length > 0) {
+        setTimeout(() => {
+          cartItems.forEach(item => {
+            let index = this.starters.findIndex(object => object.id === item.id);
+            if (index !== -1) {
+              this.starters[index].itemQuantity = item.itemQuantity;
+              this.starters[index].itemTotalPrice = item.itemTotalPrice;
+            }
+          });
+        }, 1000);
+      }
+    }
+  }
+  /**
+   * @ignore
+   */
+  onDeleteItem(itemId) {
+    // Basic initializations required
+    this.sharedService.activatePartialLoader(true);
+    this.showScreen = false;
+    this.message = '';
+    this.status = '';
+
+    this.viewRestaurantService.deleteItem(itemId, this.restaurantId).subscribe((httpResponse: ItemCRUDResponse) => {
+      if (httpResponse.status.code === 200) {
+        this.starters = this.starters.filter(object => object.id !== itemId);
+        this.sharedService.activatePartialLoader(false);
+        let input = {
+          showSnackbar: true,
+          message: httpResponse.status.message,
+          status: 'success'
+        }
+        // Activating snack bar through service
+        this.sharedService.activateSnackbar(input);
+      }
+    }, (error) => {
+      if (error.error && error.error.status) {
+        this.errorMessage(error.error.status.message);
+      } else {
+        this.errorMessage(null);
+      }
+    });
+  }
+  /**
+   * @ignore
+   */
+  onChangedItemCategory(itemId) {
+    this.starters = this.starters.filter((item) => item.id !== itemId);
+  }
+  /**
+   * @ignore
+   * method to get starters available from database
+   */
+  getStarters(restaurantId: string, itemCategory: string) {
+    // Basic initializations required
+    this.activeFullLoader = true;
+    this.showScreen = false;
+    this.message = '';
+    this.status = '';
+
+    this.starters = [];
+    this.viewRestaurantService.getFoodItems(restaurantId, itemCategory).subscribe((httpResponse: FetchItemsResponse) => {
+      if (httpResponse.status.code === 200) {
+        httpResponse.response.items.forEach((item) => {
+          let updatedItem = this.getUpdatedItem(item);
+          this.starters.push(updatedItem);
+        });
+        this.activeFullLoader = false;
+      }
+    }, (error) => {
+      if (error.error && error.error.status) {
+        this.errorMessage(error.error.status.message);
+      } else {
+        this.errorMessage(null);
+      }
+    });
+  }
+  /**
+   * @ignore
+   * method to add item added without re-loading(web socket server).
+   */
+  private addItem(item) {
+    let updatedItem = this.getUpdatedItem(item);
+    this.starters = [...this.starters, ...[updatedItem]];
+  }
+  /**
+   * @ignore
+   */
+  updateItem(item) {
+    let updatedItem = this.getUpdatedItem(item);
+    this.starters.map((item) => {
+      if (item.id === updatedItem.id) {
+        item.id = updatedItem.id,
+          item.itemName = updatedItem.itemName,
+          item.itemPrice = updatedItem.itemPrice,
+          item.itemQuantity = 0;
+        item.itemTotalPrice = updatedItem.itemPrice;
+        item.offerCode = updatedItem.offerCode,
+          item.offerPercent = updatedItem.offerPercent,
+          item.itemCategory = updatedItem.itemCategory,
+          item.restaurant = updatedItem.restaurant,
+          item.creator = updatedItem.creator,
+          item.createdAt = updatedItem.createdAt,
+          item.updatedAt = updatedItem.updatedAt
+      }
+    });
+  }
+  /**
+   * @ignore
+   * method to get updated object
+   */
+  getUpdatedItem(item): Item {
+    let updatedItem = {
+      id: item._id,
+      itemName: item.itemName,
+      itemPrice: item.itemPrice,
+      itemQuantity: 0,
+      itemTotalPrice: item.itemPrice,
+      offerCode: item.offerCode,
+      offerPercent: item.offerPercent,
+      itemCategory: item.itemCategory,
+      restaurant: item.restaurant,
+      creator: item.creator,
+      createdAt: item.createdAt,
+      updatedAt: item.updatedAt
+    }
+    return updatedItem;
+  }
+  /**
+   * @ignore
+   * Method to display error message
+   */
+  private errorMessage(message) {
+    this.showScreen = true;
+    this.status = 'error';
+    this.message = message;
+    this.sharedService.activatePartialLoader(false);
+    this.activeFullLoader = false;
+  }
+  /**
+   * @ignore
+   */
+  ngOnDestroy() {
+    if (this.idSubscription) {
+      this.idSubscription.unsubscribe();
+    }
+    if (this.qtySubscription) {
+      this.qtySubscription.unsubscribe();
+    }
+  }
+}

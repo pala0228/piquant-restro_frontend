@@ -1,0 +1,92 @@
+@import "../../assets/styles/abstracts/functions.scss";
+@import "../../assets/styles/abstracts/variables.scss";
+
+.portfolio {
+  overflow-y: auto;
+  position: relative;
+  &__content {
+    height: 100%;
+    color: $white;
+    background-color: map-get($slate, 22);
+    position: relative;
+  }
+  &__contact-mobile,
+  &__contact-email {
+    width: 62px;
+    display: inline-block;
+  }
+  // arrow mark shape for desktop view
+  &__content::before,
+  &__content::after {
+    position: absolute;
+    content: "";
+    width: 35px;
+    height: 35px;
+    background-color: map-get($slate, 22);
+    right: -0.7em;
+    z-index: 2000;
+  }
+  &__content::before {
+    top: 50%;
+    transform: skew(-30deg, 0);
+  }
+  &__content::after {
+    bottom: 50%;
+    transform: skew(30deg, 0);
+  }
+  // arrow mark shape for mobile view
+  &__image-container-mobile::before,
+  &__image-container-mobile::after {
+    position: absolute;
+    content: "";
+    width: 40px;
+    height: 40px;
+    background-color: map-get($slate, 23);
+    bottom: 0.2em;
+    z-index: 2000;
+  }
+  &__image-container-mobile::before {
+    left: 50%;
+    transform: skew(0, -30deg);
+  }
+  &__image-container-mobile::after {
+    right: 50%;
+    transform: skew(0, 30deg);
+  }
+
+  &__image-container {
+    background-color: map-get($slate, 23);
+  }
+  &__image-container-mobile {
+    background-color: map-get($slate, 23);
+  }
+  &__image {
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+  }
+  &__image-mobile {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+  }
+  &__contact-info {
+    color: $white;
+    font-weight: $normal;
+    font-size: 1rem;
+    &__mobile,
+    &__email {
+      padding-left: 45px;
+      font-size: 14px;
+    }
+  }
+}
+mat-sidenav-container,
+mat-sidenav,
+mat-sidenav-content {
+  width: 100%;
+  height: 100%;
+}
+mat-sidenav {
+  width: 200px;
+}

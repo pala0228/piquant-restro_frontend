@@ -1,0 +1,84 @@
+<div class="side-nav u-height-100">
+  <mat-toolbar>
+    <div class="u-width-100 u-height-100" fxLayout="column" fxLayoutAlign="space-between start">
+      <div fxLayout="column" class="u-margin-top-32 u-width-100" fxLayoutGap="1.5rem">
+        <div *ngIf="!userIsAuthenticated">
+          <button mat-button routerLink="/login" (click)="closeSideNav()" routerLinkActive="side-nav__menu-item-active"
+            class="side-nav__menu-item">
+            <mat-icon>login</mat-icon>Login
+          </button>
+        </div>
+        <div *ngIf="!userIsAuthenticated">
+          <button mat-button routerLink="/signup" (click)="closeSideNav()" routerLinkActive="side-nav__menu-item-active"
+            class="side-nav__menu-item">
+            <mat-icon>person_outline</mat-icon>Signup
+          </button>
+        </div>
+        <div *ngIf="!userIsAuthenticated">
+          <button mat-button routerLink="/home"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('/home')}" class="side-nav__menu-item"
+            [matTooltip]="'View restaurants'">
+            <mat-icon>home</mat-icon>Home
+          </button>
+        </div>
+        <div *ngIf="userIsAuthenticated && hasRestaurantsAccess" class="u-width-100">
+          <button mat-button routerLink="/restaurants" (click)="closeSideNav()"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('/restaurants') && activeRoute.indexOf('/add-restaurant') === -1}"
+            class="side-nav__menu-item">
+            <mat-icon>restaurant</mat-icon>Restaurants
+          </button>
+        </div>
+        <div *ngIf="userIsAuthenticated && hasAddRestaurantAcess">
+          <button mat-button (click)="navigateTo('restaurants', 'add-restaurant')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('add-restaurant')}"
+            class="side-nav__menu-item">
+            <mat-icon>add</mat-icon>Add Restaurant
+          </button>
+        </div>
+        <div *ngIf="userIsAuthenticated && hasOrdersAccess">
+          <button mat-button routerLink="/placed-orders" (click)="closeSideNav()"
+            routerLinkActive="side-nav__menu-item-active" class="side-nav__menu-item">
+            <mat-icon>email</mat-icon>Orders
+          </button>
+        </div>
+      </div>
+      <div fxLayout="row" class="u-width-100 u-margin-bottom-32" fxLayoutAlign="space-between center">
+        <div *ngIf="userIsAuthenticated && hasCartAccess">
+          <button [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('checkout')}"
+            [disabled]="cartItemsCounter > 0 ? false : true" mat-icon-button (click)="navigateToCheckout()"
+            class="side-nav__menu-item">
+            <mat-icon [matBadge]="cartItemsCounter" matBadgePosition="after" matBadgeColor="accent">add_shopping_cart
+            </mat-icon>
+          </button>
+        </div>
+        <div *ngIf="userIsAuthenticated">
+          <button class="side-nav__menu-item"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('customer')}" mat-icon-button
+            [matMenuTriggerFor]="settingsMenu">
+            <mat-icon>settings</mat-icon>
+          </button>
+          <mat-menu #settingsMenu="matMenu" yPosition="above">
+            <ng-template matMenuContent>
+              <button class="side-nav__menus"
+                [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('user-profile')}" mat-menu-item
+                (click)="navigateTo('customer', 'user-profile')">
+                <mat-icon>person</mat-icon>User Profile
+              </button>
+              <button class="side-nav__menus"
+                [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('password-management')}" mat-menu-item
+                (click)="navigateTo('customer', 'password-management')">
+                <mat-icon>password</mat-icon>Password Management
+              </button>
+            </ng-template>
+          </mat-menu>
+        </div>
+        <div *ngIf="userIsAuthenticated">
+          <button mat-button mat-icon-button (click)="onLogout()" routerLinkActive="side-nav__menu-item-active"
+            class="side-nav__menu-item">
+            <mat-icon>power_settings_new</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

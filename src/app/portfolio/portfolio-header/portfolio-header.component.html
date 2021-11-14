@@ -1,0 +1,42 @@
+<div fxLayout="row" class="u-bg-white u-width-100" fxLayoutAlign="space-between center">
+  <div fxHide.gt-sm>
+    <button mat-icon-button (click)="openSideNav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div fxLayoutAlign.lt-sm="end center" ngClass.gt-sm="portfolio-header__widget" class="u-width-100">
+    <div ngClass.gt-sm="portfolio-header__widget-align" class="portfolio-header__name">Kireeti Pala</div>
+  </div>
+  <div fxHide.lt-sm fxLayout="row">
+    <div>
+      <button mat-button (click)="navigateTo('biography')"
+        [ngClass]="{'portfolio-header__menu-item-active': activeRoute.includes('biography')}"
+        class="portfolio-header__menu-item">Home</button>
+    </div>
+    <div>
+      <button mat-button (click)="navigateTo('career-aspiration')"
+        [ngClass]="{'portfolio-header__menu-item-active': activeRoute.includes('career-aspiration')}"
+        class="portfolio-header__menu-item">Career Aspiration</button>
+    </div>
+    <div>
+      <button mat-button (click)="navigateTo('qualification')"
+        [ngClass]="{'portfolio-header__menu-item-active': activeRoute.includes('qualification')}"
+        class="portfolio-header__menu-item">Qualification</button>
+    </div>
+    <div>
+      <button mat-button (click)="navigateTo('work-experience')"
+        [ngClass]="{'portfolio-header__menu-item-active': activeRoute.includes('work-experience')}"
+        class="portfolio-header__menu-item">Work Experience</button>
+    </div>
+    <div>
+      <button mat-button (click)="navigateTo('tech-skills')"
+        [ngClass]="{'portfolio-header__menu-item-active': activeRoute.includes('tech-skills')}"
+        class="portfolio-header__menu-item">Technical Skills</button>
+    </div>
+    <div>
+      <button mat-button (click)="navigateTo('projects-overview')"
+        [ngClass]="{'portfolio-header__menu-item-active': activeRoute.includes('projects-overview')}"
+        class="portfolio-header__menu-item">Projects Overview</button>
+    </div>
+  </div>
+</div>

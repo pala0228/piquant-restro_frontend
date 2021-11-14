@@ -1,0 +1,165 @@
+<div class="addrestaurant u-bg-white page-container update-restaurant-hide-padding" fxLayout="column">
+  <!-- page title starts  -->
+  <div class="page-title-widget u-margin-bottom-24 update-restaurant-hide-content">
+    <div class="page-title page-title-align">
+      Add Restaurant
+    </div>
+  </div>
+  <!-- Info screen to show success/error/warning/information messages-->
+  <div *ngIf="showScreen">
+    <app-info [message]="message" [showScreen]="showScreen" [status]="status"></app-info>
+  </div>
+  <!-- page content starts  -->
+  <form [formGroup]="addRestaurantFrom">
+    <div class="u-bg-white" fxLayout="column">
+      <div ngClass.lt-sm="addrestaurant__scrollview">
+        <mat-card fxFlex="100%" class="mat-elevation-z8" ngClass.lt-sm="u-height-100">
+          <mat-card-content fxLayout="column" fxLayoutGap="2rem">
+            <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem" fxLayoutAlign.gt-sm="space-around center"
+              fxLayout.lt-sm="column" fxLayoutGap.lt-sm=".5rem">
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Restaurant Name</mat-label>
+                  <input formControlName="restaurantTitle" required matInput type="text">
+                  <mat-error *ngIf="addRestaurantFrom.controls['restaurantTitle'].errors?.required">
+                    Mandatory feild: Restaurant name
+                  </mat-error>
+                  <mat-error *ngIf="addRestaurantFrom.controls['restaurantTitle'].errors?.pattern">
+                    Invalid restaurant name, Only alphanumeric data is allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Restaurant sub title</mat-label>
+                  <textarea formControlName="restaurantSubTitle" required matInput #subtitle></textarea>
+                  <mat-hint>Ex: Andhra Tandoori, South indian, North indain food available</mat-hint>
+                  <mat-hint align="end">{{subtitle.value?.length || 0 }}/80</mat-hint>
+                  <mat-error *ngIf="addRestaurantFrom.controls['restaurantSubTitle'].errors?.required">
+                    Mandatory feild: Restaurant sub title
+                  </mat-error>
+                  <mat-error *ngIf="addRestaurantFrom.controls['restaurantSubTitle'].errors?.pattern">
+                    Invalid restaurant sub title, Only alphanumeric data is allowed.
+                  </mat-error>
+                  <mat-error *ngIf="addRestaurantFrom.controls['restaurantSubTitle'].errors?.maxlength">
+                    Invalid restaurant sub title, Max 80 characters lenght is allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div ngStyle.gt-sm="height: 144px;" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem"
+              fxLayoutAlign.gt-sm="space-around top" fxLayout.lt-sm="column" fxLayoutGap.lt-sm="1rem">
+              <div fxFlex="40" fxFlex.lt-sm="100%" fxLayout.gt-sm="row" fxLayout.lt-sm="column"
+                fxLayoutGap.lt-sm=".5rem">
+                <div fxFlex fxFlex.lt-sm="100%">
+                  <div fxLayout="row" fxLayoutAlign="start center">
+                    <div>
+                      <button type="button" (click)="filePicker.click()" mat-stroked-button
+                        matTooltip="Upload image">Pick
+                        image</button>
+                    </div>
+                    <div class="u-margin-left-8">
+                      <span>{{fileName}}</span>
+                    </div>
+                  </div>
+                  <input type="file" (change)="onSelectImage($event)" #filePicker>
+                  <mat-error *ngIf="addRestaurantFrom.controls['image'].errors?.invalidMimeType">
+                    Invalid image, Please upload image with type of .PNG or .JPG
+                  </mat-error>
+                </div>
+                <div fxFlex fxFlex.lt-sm="100%" ngClass.lt-sm="u-width-100" class="addrestaurant__image-preview"
+                  *ngIf="!updatableRestaurantInfo && imagePreview !== '' && imagePreview && addRestaurantFrom.get('image').valid">
+                  <img [src]="imagePreview" alt="addRestaurantFrom.value.restaurantTitle">
+                </div>
+                <div fxFlex.lt-sm="100%" *ngIf="updatableRestaurantInfo && imagePreview !== '' && imagePreview " fxFlex
+                  class="addrestaurant__image-preview" ngStyle.gt-sm=" width: 13rem;" ngClass.lt-sm="u-width-100">
+                  <img [src]="imagePreview" alt="addRestaurantFrom.value.restaurantTitle">
+                </div>
+              </div>
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+                <mat-form-field class="u-width-100" appearance="outline">
+                  <mat-label>Restaurant rating</mat-label>
+                  <select matNativeControl [(value)]="selectedRate" required formControlName="rating"
+                    (change)="onSelectRating($event)">
+                    <option value=""></option>
+                    <option *ngFor="let option of ratings" [value]="option.value">
+                      {{ option.viewValue }}</option>
+                  </select>
+                  <mat-hint>Please restaurant rating from dropdown</mat-hint>
+                  <mat-error *ngIf="addRestaurantFrom.controls['rating'].errors?.required">
+                    Mandatory feild: Restaurant rating
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem" fxLayoutAlign.gt-sm="space-around center"
+              fxLayout.lt-sm="column" fxLayoutGap.lt-sm="1rem">
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Delivery time in minutes</mat-label>
+                  <span matSuffix>MIN</span>
+                  <input required formControlName="deliveryTime" matInput type="text">
+                  <mat-hint>Default time 30 minutes. Please modify if required</mat-hint>
+                  <mat-error *ngIf="addRestaurantFrom.controls['deliveryTime'].errors?.required">
+                    Mandatory feild: Delivery time in minutes.
+                  </mat-error>
+                  <mat-error *ngIf="addRestaurantFrom.controls['deliveryTime'].errors?.maxlength">
+                    Invalid delivery time, Max 3 digits are allowed.
+                  </mat-error>
+                  <mat-error *ngIf="addRestaurantFrom.controls['deliveryTime'].errors?.pattern">
+                    Invalid delivery time, Only numbers are allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+                <mat-form-field class="u-width-100" appearance="outline">
+                  <mat-label>Offer code</mat-label>
+                  <select matNativeControl [(value)]="selectedOfferCode" formControlName="offerCode"
+                    (change)="onSelectOfferCode($event)">
+                    <option value=""></option>
+                    <option *ngFor="let option of offerCodes" [value]="option.offerCode">
+                      {{ option.offerCode}}</option>
+                  </select>
+                  <mat-hint *ngIf="!offerText">Please select offer code from dropdown</mat-hint>
+                  <mat-hint *ngIf="offerText">{{offerText}}</mat-hint>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem" fxLayoutAlign.gt-sm="space-around center"
+              fxLayout.lt-sm="column">
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+              </div>
+              <div fxFlex="40" fxFlex.lt-sm="100%">
+                <mat-form-field class="u-width-100" appearance="outline">
+                  <textarea #Address required matInput placeholder="Address" formControlName="address" maxlength="250">
+                  </textarea>
+                  <mat-hint align="start">Address format: Area name, city name, state, pin code</mat-hint>
+                  <mat-hint align="end">{{ Address.value?.length || 0 }}/250</mat-hint>
+                  <mat-error *ngIf="addRestaurantFrom.controls['address'].errors?.maxlength">
+                    Invalid address, Max 250 alphanumeric characters are allowed.
+                  </mat-error>
+                  <mat-error *ngIf="addRestaurantFrom.controls['address'].errors?.required">
+                    Mandatory feild: Address of restaurant.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <!-- Action buttons starts from here  -->
+      <div class="u-margin-top-8">
+        <mat-card-actions class="update-restaurant-hide-content u-width-100">
+          <div>
+            <button [matTooltip]="'Clear'" class="u-float-left" type="button" color="accent" (click)="onClear()"
+              mat-button>Clear</button>
+          </div>
+          <div fxLayoutAlign="center center">
+            <button type="submit" color="accent" [matTooltip]="'Add new restaurant'" (click)="onAdd()"
+              [disabled]="addRestaurantFrom.invalid" mat-raised-button>Add</button>
+          </div>
+        </mat-card-actions>
+      </div>
+    </div>
+  </form>
+</div>

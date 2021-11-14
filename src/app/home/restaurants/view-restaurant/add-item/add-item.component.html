@@ -1,0 +1,118 @@
+<div class="add-item page-container u-bg-white" fxLayout="column" style="padding: 0px;">
+  <!-- page title starts  -->
+  <div class="page-title-widget u-margin-bottom-24">
+    <div class="page-title page-title-align">
+      Add Item
+    </div>
+  </div>
+  <!-- Info screen to show success/error/warning/information messages-->
+  <div *ngIf="showScreen">
+    <app-info [message]="message" [showScreen]="showScreen" [status]="status"></app-info>
+  </div>
+  <!-- page content starts  -->
+  <div class="u-width-100" fxLayout="column" fxLayoutAlign="center center">
+    <div fxFlex="100" class="u-width-100" fxLayout="row" fxLayoutAlign="center center">
+      <form [formGroup]="addItemForm" class="u-width-100">
+        <mat-card class="mat-elevation-z8" ngClass.lt-sm="add-item__overflow">
+          <mat-card-content fxLayout="column" fxLayoutGap.gt-sm="2rem">
+            <div fxLayout.lt-sm="column" fxLayoutGap.lt-sm="1rem" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem"
+              fxLayoutAlign.gt-sm="space-around center">
+              <div fxFlex.gt-sm="40" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Item name</mat-label>
+                  <input formControlName="itemName" required matInput type="text">
+                  <mat-error *ngIf="addItemForm.controls['itemName'].errors?.required">
+                    Mandatory feild: Item name
+                  </mat-error>
+                  <mat-error *ngIf="addItemForm.controls['itemName'].errors?.pattern">
+                    Invalid item name, Only alphanumeric data is allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="40" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Item price</mat-label>
+                  <input formControlName="itemPrice" required matInput type="text">
+                  <mat-error *ngIf="addItemForm.controls['itemPrice'].errors?.required">
+                    Mandatory feild: Item price.
+                  </mat-error>
+                  <mat-error *ngIf="addItemForm.controls['itemPrice'].errors?.maxlength">
+                    Invalid item price, Max 3 digits are allowed.
+                  </mat-error>
+                  <mat-error *ngIf="addItemForm.controls['itemPrice'].errors?.pattern">
+                    Invalid item price, Only numbers are allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.lt-sm="column" fxLayoutGap.lt-sm="1rem" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem"
+              fxLayoutAlign.gt-sm="space-around center">
+              <div fxFlex.gt-sm="40" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Offer code</mat-label>
+                  <input formControlName="offerCode" matInput type="text">
+                </mat-form-field>
+              </div>
+              <div fxFlex.gt-sm="40" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Offer percentage</mat-label>
+                  <span matSuffix>%</span>
+                  <input formControlName="offerPercent" matInput type="text">
+                  <mat-error *ngIf="addItemForm.controls['offerPercent'].errors?.maxlength">
+                    Invalid offer percentage, Max 2 digits are allowed.
+                  </mat-error>
+                  <mat-error *ngIf="addItemForm.controls['offerPercent'].errors?.pattern">
+                    Invalid offer percentage, Only numbers are allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.lt-sm="column" fxLayoutGap.lt-sm="1rem" fxLayout.gt-sm="row" fxLayoutGap.gt-sm="5rem"
+              fxLayoutAlign.gt-sm="space-around center">
+              <div fxFlex.gt-sm="40" fxFlex.lt-sm="100">
+                <section class="u-width-100">
+                  <div>
+                    <mat-label>Select item category:</mat-label>
+                  </div>
+                  <div class="u-margin-top-8">
+                    <mat-radio-group color="primary" formControlName="itemCategory">
+                      <mat-radio-button class="u-padding-8" [value]="ITEM_CATEGORY.STARTERS">Starters
+                      </mat-radio-button>
+                      <mat-radio-button class="u-padding-8" [value]="ITEM_CATEGORY.BIRYANIES">Biryanis
+                      </mat-radio-button>
+                      <mat-radio-button class="u-padding-8" [value]="ITEM_CATEGORY.DESSERTS">Desserts</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                  <mat-error
+                    *ngIf="addItemForm.controls['itemCategory'].errors?.required && addItemForm.controls['itemCategory'].dirty">
+                    Mandatory feild: Item category
+                  </mat-error>
+                </section>
+              </div>
+              <div fxFlex.gt-sm="40" fxFlex.lt-sm="100">
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </form>
+    </div>
+    <div class="u-width-100">
+      <mat-card-actions class="u-width-100 u-margin-top-8">
+        <div>
+          <button class="u-float-left" type="button" (click)="onClear()" color="accent" mat-button
+            matTooltip="Clear">Clear</button>
+        </div>
+        <div fxLayoutAlign="center center">
+          <button type="button" color="primary" (click)="onCancel()" mat-stroked-button>Cancel</button>
+          <button type="submit" color="accent" (click)="onAddItem()"
+            [disabled]="!addItemForm.valid || !addItemForm.dirty"
+            mat-raised-button>{{this.type === 'edit' ? 'Update' : 'Add'}} item</button>
+        </div>
+      </mat-card-actions>
+    </div>
+  </div>
+  <!-- partial loader to show while checking user login credentials -->
+  <div *ngIf="activePartialLoader" class="add-item__partial-loader">
+    <app-partial-loader [loading]="activePartialLoader"></app-partial-loader>
+  </div>
+</div>

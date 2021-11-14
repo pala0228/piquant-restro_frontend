@@ -1,0 +1,21 @@
+@import "../../../../assets/styles/abstracts/functions.scss";
+@import "../../../../assets/styles/abstracts/variables.scss";
+
+.addrestaurant {
+  position: relative;
+  &__image-preview {
+    height: 9rem;
+  }
+  &__image-preview > img {
+    width: 100%;
+    height: 100%;
+  }
+  &__scrollview {
+    max-height: 350px;
+    overflow-y: auto;
+  }
+}
+
+input[type="file"] {
+  visibility: hidden;
+}

@@ -1,0 +1,82 @@
+<div class="home page-container" fxLayout="column" fxLayoutGap="1rem">
+  <!-- page title starts  -->
+  <div fxLayout.lt-sm="column" fxLayoutGap.lt-sm="1rem" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center">
+    <div class="page-title-widget">
+      <div class="page-title page-title-align">Restaurants</div>
+    </div>
+    <!-- paginator starts here  -->
+    <div *ngIf="totalRestaurants > 0" fxLayout.lt-sm="row" fxLayoutAlign.lt-sm="end center">
+      <mat-paginator #paginator (page)="onChangePage($event)" showFirstLastButtons [length]="totalRestaurants"
+        [pageSize]="restaurantsPerPage" [pageSizeOptions]="pageSizeOptions">
+      </mat-paginator>
+    </div>
+  </div>
+  <!-- Info screen to show success/error/warning/information messages-->
+  <div *ngIf="showScreen">
+    <app-info [message]="message" [showScreen]="showScreen" [status]="status"></app-info>
+  </div>
+  <!-- pate content starts  (click)="onAddViewItems(object)" -->
+  <div *ngIf="!activeFullLoader" ngClass.lt-sm="home__over-flow" ngClass.gt-sm="home__over-flow-gt-sm"
+    class="u-bg-white u-width-100" fxLayout="row wrap" fxLayoutAlign.gt-sm="space-between start">
+    <div fxFlex.gt-sm="23%" fxFlex.lt-sm="100%" *ngFor="let object of restaurantsData;"
+      ngClass.lt-sm="u-margin-bottom-32" ngClass.gt-sm="home__cursor-pointer home__max-height-width">
+      <mat-card class="home__card home__show-action-buttons">
+        <mat-card-header>
+          <img mat-card-avatar class="home__image-avatar" [src]="object.image" alt="issue while loading image">
+          <mat-card-title>
+            {{object.restaurantTitle}}
+            <span *ngIf="object.rating >= 4" class="home__badge">Promoted</span>
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{object.restaurantSubTitle}}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <div fxLayoutAlign="center center">
+          <img class="home__image" [src]="object.image" [alt]="object.restaurantTitle">
+        </div>
+        <mat-card-content fxLayout="column" fxLayoutGap="5px" class="u-margin-top-16">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="home__rating-good" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="3px">
+              <mat-icon>star_rate</mat-icon>
+              <span>{{object.rating}}.0</span>
+            </div>
+            <div>
+              <span>Delivery time:</span>
+              <span> {{object.deliveryTime}} MINS</span>
+            </div>
+          </div>
+          <div>
+            <mat-divider></mat-divider>
+          </div>
+          <div *ngIf="object.offerPercent" class="home__offer" fxLayout="row" fxLayoutAlign="center center"
+            fxLayoutGap="4px">
+            <span>{{object.offerPercent}}% off</span>
+            <span>|</span>
+            <span>Use {{object.offerCode}} code</span>
+          </div>
+          <div *ngIf="!object.offerPercent" class="home__offer" fxLayout="row" fxLayoutAlign="center center">
+            <span>No offer is available</span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <div class="home__hide-action-buttons">
+            <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="center center">
+              <div>
+                <button type="button" (click)="onViewItems(object)" mat-stroked-button [matTooltip]="'View Items'">View
+                  Items</button>
+              </div>
+            </div>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <div *ngIf="restaurantsData.length === 0 && !activeFullLoader" class="div-size" fxLayout="column"
+    fxLayoutAlign="center center">
+    <span>No Restaurants found.</span>
+  </div>
+  <!-- full loader  -->
+  <div *ngIf="activeFullLoader" class="u-width-100">
+    <app-full-loader [loading]="activeFullLoader"></app-full-loader>
+  </div>
+</div>

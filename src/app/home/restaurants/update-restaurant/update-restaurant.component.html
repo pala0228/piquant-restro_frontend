@@ -1,0 +1,24 @@
+<div class="update-restaurant u-bg-white page-container" fxLayoutGap="1rem" fxLayout="column" fxLayoutGap="2.5rem">
+  <!-- page title starts  -->
+  <div class="page-title-widget">
+    <div class="page-title page-title-align">
+      Update Restaurant
+    </div>
+  </div>
+  <!-- page content starts  -->
+  <div>
+    <div>
+      <app-add-restaurant #addRestaurant [updatableRestaurantInfo]="restaurantInfo"></app-add-restaurant>
+    </div>
+    <div>
+      <mat-card-actions class="u-width-100">
+        <div fxLayoutAlign="center center">
+          <button [matTooltip]="'Go to restaurants page'" type="button" color="primary" routerLink="/restaurants"
+            mat-stroked-button>Back</button>
+          <button [matTooltip]="'Update Restaurant'" type="submit" color="accent" (click)="onUpdate()"
+            [disabled]="addRestaurant.addRestaurantFrom.invalid" mat-raised-button>Update</button>
+        </div>
+      </mat-card-actions>
+    </div>
+  </div>
+</div>

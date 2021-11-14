@@ -1,0 +1,21 @@
+@import "../../../../../assets/styles/abstracts/variables.scss";
+@import "../../../../../assets/styles/abstracts/functions.scss";
+
+.cart {
+  &__checkout-title {
+    font-size: 1.5rem;
+    font-weight: $normal;
+  }
+  &__checkout-button {
+    font-size: 1.2rem;
+    width: 300px;
+  }
+  &__checkout-widget {
+    font-size: 1.5rem;
+  }
+  &__items {
+    max-height: 62%;
+    min-height: 62%;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,38 @@
+<div class="side-nav u-height-100">
+  <mat-toolbar>
+    <div class="u-width-100 u-height-100" fxLayout="column" fxLayoutAlign="space-between start">
+      <div fxLayout="column" class="u-margin-top-32 u-width-100" fxLayoutGap="1.5rem">
+        <div>
+          <button mat-button (click)="navigateTo('biography')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('biography')}"
+            class="side-nav__menu-item">Home</button>
+        </div>
+        <div>
+          <button mat-button (click)="navigateTo('career-aspiration')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('career-aspiration')}"
+            class="side-nav__menu-item">Career Aspiration</button>
+        </div>
+        <div>
+          <button mat-button (click)="navigateTo('qualification')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('qualification')}"
+            class="side-nav__menu-item">Qualification</button>
+        </div>
+        <div>
+          <button mat-button (click)="navigateTo('work-experience')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('work-experience')}"
+            class="side-nav__menu-item">Work Experience</button>
+        </div>
+        <div>
+          <button mat-button (click)="navigateTo('tech-skills')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('tech-skills')}"
+            class="side-nav__menu-item">Technical Skills</button>
+        </div>
+        <div>
+          <button mat-button (click)="navigateTo('projects-overview')"
+            [ngClass]="{'side-nav__menu-item-active': activeRoute.includes('projects-overview')}"
+            class="side-nav__menu-item">Projects Overview</button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar>
+</div>

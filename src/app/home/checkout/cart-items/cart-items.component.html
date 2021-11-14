@@ -1,0 +1,75 @@
+<div class="cart-items page-container checkout__hide-padding-bottom" fxLayout="column">
+  <!-- page title starts  -->
+  <div class="page-title-widget u-margin-bottom-32 u-padding-top-12 u-padding-bottom-12">
+    <div class="page-title page-title-align">
+      Cart Items
+    </div>
+  </div>
+  <!-- page content  -->
+  <div ngClass.lt-sm="cart-items__overflow" class="cart-items__content-hide-and-show">
+    <div fxLayout.lt-sm="column" fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between " fxLayoutGap="5px">
+      <!-- cart items  -->
+      <div fxFlex.gt-sm="65" fxFlex.lt-sm="100">
+        <div ngClass.lt-sm="u-width-100" ngClass.gt-sm="page-container" fxLayout="column" fxLayoutGap="1rem">
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div>
+              <mat-card-title>
+                Selected Items List
+              </mat-card-title>
+            </div>
+            <div>
+              <sub>{{cartItems?.length}} items</sub>
+            </div>
+          </div>
+          <div ngClass.lt-sm="cart-items__items-sc" ngClass.gt-sm="cart-items__items">
+            <div *ngFor="let item of cartItems" class="u-margin-bottom-12">
+              <app-cart-item [item]="item"></app-cart-item>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- billing details  -->
+      <div fxFlex="35" fxFlex.lt-sm="100" ngClass.lt-sm="u-padding-12 u-width-100"
+        ngClass.gt-sm="page-container cart-items__bill-details cart-items__border-left" fxLayout="column"
+        fxLayoutGap="1rem">
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div>
+            <mat-card-title>
+              Billing Details
+            </mat-card-title>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div><label>Items Total</label></div>
+          <div><span>{{itemsTotal | currency: 'INR'}}</span></div>
+        </div>
+        <div fxLayout="row" class="cart-items__border u-padding-top-8 u-padding-bottom-24"
+          fxLayoutAlign="space-between center">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div><label>Taxes and Charges</label></div>
+            <div>
+              <button [matTooltipPosition]="'above'" mat-icon-button color="primary"
+                matTooltip="Restaurant GST(5%) on items total">
+                <mat-icon class="cart-items__info-icon">info_outline</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div><span>{{taxCharges | currency: 'INR'}}</span></div>
+        </div>
+        <div fxLayout="row" class="u-font-medium" fxLayoutAlign="space-between center">
+          <div><label>To Pay</label></div>
+          <div><span>{{payableAmount | currency: 'INR'}}</span></div>
+        </div>
+        <div *ngIf="payableAmount > 0" class="u-margin-top-16">
+          <div class="cart-items__checkout-title" fxLayout="row" fxLayoutAlign="center end">
+            <button [matTooltip]="'Go to payment gateway'" (click)="onProceedToPay()" type="button"
+              class="cart-items__checkout-button" mat-raised-button color="accent">
+              <mat-icon>payment</mat-icon> Proceed to pay
+              <mat-icon class="cart-items__checkout-widget">arrow_forward</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

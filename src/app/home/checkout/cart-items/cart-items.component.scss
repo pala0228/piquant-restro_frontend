@@ -1,0 +1,55 @@
+@import "../../../../assets/styles/abstracts/variables.scss";
+@import "../../../../assets/styles/abstracts/functions.scss";
+
+.cart-items {
+  &__items {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  &__items-sc {
+    max-height: 210px;
+    overflow-y: auto;
+  }
+  &__overflow {
+    max-height: 360px;
+    overflow-y: auto;
+  }
+  &__bill-details {
+    max-height: 391px;
+    min-height: 391px;
+  }
+  &__checkout-title {
+    font-size: 1.5rem;
+    font-weight: $normal;
+  }
+  &__checkout-button {
+    font-size: 1.2rem;
+    width: 300px;
+  }
+  &__checkout-widget {
+    font-size: 1.5rem;
+  }
+  &__border {
+    border-top: 0.5px solid lightgrey;
+    border-bottom: 2px solid black;
+  }
+  &__offer-code-success {
+    color: #60b247;
+    font-weight: 400;
+  }
+  &__border-left {
+    border-left: 0.5px solid lightgrey;
+  }
+  &__info-icon {
+    font-size: 22px;
+    cursor: pointer;
+  }
+}
+:host {
+  ::ng-deep {
+    .mat-card-title {
+      margin-bottom: 0px;
+      font-size: 20px;
+    }
+  }
+}

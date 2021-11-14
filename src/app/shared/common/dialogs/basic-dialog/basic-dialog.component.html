@@ -1,0 +1,17 @@
+<div class="basic-dialog">
+  <div fxLayout="column" fxLayoutGap="10px">
+    <!-- dialog content  -->
+    <mat-card-header fxLayoutAlign="center center">
+      <div>
+        {{message}}
+      </div>
+    </mat-card-header>
+    <!-- action buttons  -->
+    <mat-card-actions class="u-margin-top-16" fxLayoutAlign="center center" fxLayoutGap="8px">
+      <button *ngIf="cancelButton" type="button" (click)="onCancel()" color="primary" mat-stroked-button
+        [matTooltip]="cancelButton">{{cancelButton}}</button>
+      <button *ngIf="actionButton" type="button" (click)="onAction()" color="accent" mat-raised-button
+        [matTooltip]="actionButton">{{actionButton}}</button>
+    </mat-card-actions>
+  </div>
+</div>

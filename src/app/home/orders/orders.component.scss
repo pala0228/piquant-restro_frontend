@@ -1,0 +1,33 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.view-orders {
+  &__mobile-view {
+    height: 335px;
+    overflow: auto;
+  }
+  &__view-item {
+    color: $danger;
+    border: 0.5px solid $danger;
+    cursor: pointer;
+  }
+  &__hide {
+    display: none;
+  }
+}
+
+:host {
+  ::ng-deep {
+    table {
+      width: 100%;
+    }
+    .mat-header-cell {
+      font-size: 13px !important;
+    }
+    td.mat-cell,
+    td.mat-footer-cell,
+    th.mat-header-cell {
+      padding: 6px !important;
+    }
+  }
+}

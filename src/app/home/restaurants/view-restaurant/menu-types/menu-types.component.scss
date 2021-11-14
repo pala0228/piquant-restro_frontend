@@ -1,0 +1,36 @@
+.menu-Types {
+  &__menuType {
+    font-size: 16px;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  &__menuType:hover,
+  &__menuType:active {
+    color: #f3983e;
+  }
+  &__menuType:hover + &__menu-type-border {
+    border-right: 0.3rem solid #0068b3;
+  }
+  // &__menuType:hover + &__menu-type-border-sc {
+  //   border-bottom: 0.3rem solid #0068b3;
+  // }
+  &__menuType:hover + &__active-route:active + &__menu-type-border {
+    border-right: 0px;
+  }
+  &__menu-type-border {
+    height: 1.5rem;
+  }
+  &__menu-type-border-sc {
+    width: 100%;
+  }
+  &__active-route {
+    color: #f3983e;
+  }
+  &__active-route + &__menu-type-border {
+    border-right: 0.3rem solid #0068b3;
+  }
+  &__active-route + &__menu-type-border-sc {
+    border-bottom: 0.3rem solid #0068b3;
+  }
+}

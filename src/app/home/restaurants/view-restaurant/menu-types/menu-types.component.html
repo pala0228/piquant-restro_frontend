@@ -1,0 +1,23 @@
+<div fxLayout.gt-sm="column" fxLayout.lt-sm="row" fxLayoutAlign.lt-sm="center center" fxLayoutGap=".5rem">
+  <div fxFlex="100" fxLayout.lt-sm="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+    <div fxFlex.lt-sm="100" fxFlex.gt-sm="95" [ngClass]="{'menu-Types__active-route' : routeUrl?.includes('starters')}"
+      (click)="onClickMenuType(ITEM_CATEGORY.STARTERS)" class="menu-Types__menuType u-align-right">
+      {{menuTypes[0]}}</div>
+    <div fxFlex.lt-sm="100" fxFlex.gt-sm="5" ngClass.lt-sm="menu-Types__menu-type-border-sc"
+      ngClass.gt-sm="menu-Types__menu-type-border"></div>
+  </div>
+  <div fxFlex="100" fxLayout.lt-sm="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+    <div fxFlex.lt-sm="100" fxFlex.gt-sm="95" [ngClass]="{'menu-Types__active-route' : routeUrl?.includes('biryanis')}"
+      (click)="onClickMenuType(ITEM_CATEGORY.BIRYANIES)" class="menu-Types__menuType u-align-right">
+      {{menuTypes[1]}}</div>
+    <div fxFlex.lt-sm="100" fxFlex.gt-sm="5" ngClass.lt-sm="menu-Types__menu-type-border-sc"
+      ngClass.gt-sm="menu-Types__menu-type-border"></div>
+  </div>
+  <div fxFlex="100" fxLayout.lt-sm="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+    <div fxFlex.lt-sm="100" fxFlex.gt-sm="95" [ngClass]="{'menu-Types__active-route' : routeUrl?.includes('desserts')}"
+      (click)="onClickMenuType(ITEM_CATEGORY.DESSERTS)" class="menu-Types__menuType u-align-right">
+      {{menuTypes[2]}}</div>
+    <div fxFlex.lt-sm="100" fxFlex.gt-sm="5" ngClass.lt-sm="menu-Types__menu-type-border-sc"
+      ngClass.gt-sm="menu-Types__menu-type-border"></div>
+  </div>
+</div>

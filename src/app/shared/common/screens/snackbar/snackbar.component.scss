@@ -1,0 +1,57 @@
+@import "../../../../../assets/styles/abstracts/variables.scss";
+@import "../../../../../assets/styles/abstracts/functions.scss";
+
+.snackbar {
+  width: 100%;
+  height: 100%;
+  &__container {
+    background-color: map-get($slate, 11);
+    padding: 16px 24px;
+    margin: auto;
+    border-radius: 4px;
+    position: relative;
+    z-index: 1000; // keeping high index since it has to be visible on top of content.
+  }
+  &__icon {
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    position: absolute;
+  }
+  &__call-to-action {
+    top: 50%;
+    right: 16px;
+    padding-left: 10px;
+    transform: translateY(-50%);
+    position: absolute;
+    color: $white;
+    cursor: pointer;
+  }
+  &__call-to-action:active,
+  &__call-to-action:hover {
+    color: rgba(255, 255, 255, 0.8);
+  }
+  &__message {
+    color: $white;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    margin: auto 16px auto 40px;
+  }
+}
+.success {
+  color: $success;
+  border: 0px;
+}
+.error {
+  color: $danger;
+  border: 0px;
+}
+.warning {
+  color: $warning;
+  border: 0px;
+}
+.info {
+  color: $info;
+  border: 0px;
+}

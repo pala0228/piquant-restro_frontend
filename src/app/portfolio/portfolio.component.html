@@ -1,0 +1,53 @@
+<div class="page-container portfolio" style="padding: 12px;">
+  <mat-sidenav-container>
+    <!-- side nav  -->
+    <mat-sidenav [autoFocus]="'false'" #sidenav>
+      <app-portfolio-side-nav (closeSidenav)="sidenav.toggle()"></app-portfolio-side-nav>
+    </mat-sidenav>
+    <!-- main content  -->
+    <mat-sidenav-content>
+      <main fxLayout="column" class="u-bg-white" fxFlexFill fxLayoutGap="0.7rem">
+        <div class="u-width-100">
+          <app-portfolio-header (activateSidenav)="sidenav.toggle()"></app-portfolio-header>
+        </div>
+        <div class="portfolio u-width-100 u-height-100" fxLayout="column" fxLayoutGap="5px">
+          <div fxLayout.gt-sm="row" fxLayout.lt-sm="column" ngClass.gt-sm="u-height-100">
+            <div fxHide.gt-sm fxFlex.lt-sm="100%" ngClass.lt-sm="portfolio__image-container-mobile u-height-100">
+              <ng-container *ngTemplateOutlet="portfolioProfilePic"></ng-container>
+            </div>
+            <div fxFlex="100%" fxFlex.gt-sm="65%" class="u-padding-top-24" ngClass="portfolio__content">
+              <router-outlet></router-outlet>
+            </div>
+            <div fxHide.lt-sm fxFlex.gt-sm="35%" ngClass.gt-sm="portfolio__image-container u-height-100">
+              <ng-container *ngTemplateOutlet="portfolioProfilePic"></ng-container>
+            </div>
+          </div>
+        </div>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<ng-template #portfolioProfilePic>
+  <div fxFlex="100%" fxLayout="column">
+    <div fxFlex.gt-sm="85%" fxLayout="row" ngClass.lt-sm="u-padding-8" fxLayoutAlign="center center">
+      <img ngClass.gt-sm="portfolio__image" ngClass.lt-sm="portfolio__image-mobile" [src]="portfolioImagePath"
+        [title]="portfolioImageTitle" />
+    </div>
+    <div ngClass.lt-sm="u-margin-bottom-32" fxFlex.gt-sm="15%" class="portfolio__contact-info u-padding-8">
+      <div>Contact me:</div>
+      <div class="u-margin-top-8">
+        <div class="portfolio__contact-info__mobile">
+          <span class="portfolio__contact-mobile">@Mobile</span>
+          <span class="u-padding-8">-</span>
+          <span>+91 7032820228</span>
+        </div>
+        <div class="portfolio__contact-info__email">
+          <span class="portfolio__contact-email">@Email</span>
+          <span class="u-padding-8">-</span>
+          <span>Kireeti.Pala0228@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

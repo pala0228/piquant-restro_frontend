@@ -1,0 +1,44 @@
+@import "../../assets/styles/abstracts/functions.scss";
+@import "../../assets/styles/abstracts/variables.scss";
+
+.side-nav {
+  &__spacer {
+    flex: 1 1 auto;
+  }
+  &__menu-item {
+    font-size: 1rem;
+    font-weight: $normal;
+    color: $white;
+  }
+  &__menus {
+    color: black;
+  }
+  &__menu-item:hover,
+  &__menu-item:active {
+    color: map-get($slate, 15);
+  }
+  &__menu-item-active {
+    color: map-get($slate, 15) !important;
+    background-color: $white;
+  }
+}
+
+:host {
+  ::ng-deep {
+    .mat-toolbar {
+      background-color: map-get($slate, 11);
+      height: 100%;
+      width: 100%;
+      border-bottom: 13px solid $danger;
+    }
+    .mat-icon {
+      font-size: 1.3rem;
+    }
+    .mat-button {
+      width: 100%;
+    }
+    .mat-icon-button[disabled][disabled] {
+      color: $white;
+    }
+  }
+}

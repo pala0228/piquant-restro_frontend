@@ -1,0 +1,53 @@
+// General colors
+$slate: (
+  1: #f5f7f9,
+  2: #dde3e7,
+  3: #c7cdd5,
+  4: #808080,
+  5: #9ba4ab,
+  6: #858f96,
+  7: #6f7a81,
+  8: #59656d,
+  9: #455057,
+  10: #303c44,
+  11: #172733,
+  12: #e8f0fe,
+  13: #ec407f,
+  14: #3f51b5,
+  15: #f3983e,
+  16: #0068b3,
+  17: #aa877e,
+  18: #006400,
+  19: #29303b,
+  20: #44474e,
+  21: #49bcf7,
+  22: #ef6c6c,
+  23: #1c222d,
+);
+
+// COLOR
+$white: #ffffff;
+$black: #17181a;
+$info: #b96bff;
+$success: #32d992;
+$warning: #d88a04;
+$danger: #ff4724;
+
+// FONT
+$default-font-size: 1.6rem;
+$extra-bold: 800;
+$bold: 700;
+$medium: 600;
+$normal: 400;
+$light: 300;
+$f-16: 16px;
+$f-18: 18px;
+$f-20: 20px;
+$f-22: 22px;
+
+//breakpoints
+$xs-breakpoint: 10em;
+$sm-breakpoint: 20em;
+$md-breakpoint: 47.9375em;
+$lg-breakpoint: 61.9375em;
+$xl-breakpoint: 115em;

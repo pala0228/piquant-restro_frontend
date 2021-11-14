@@ -1,0 +1,48 @@
+@import "../../../../assets/styles/abstracts/variables.scss";
+@import "../../../../assets/styles/abstracts/functions.scss";
+
+.login {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  background-blend-mode: multiply;
+  background-origin: border-box;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  &__form {
+    top: 50%;
+    left: 82%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  &__form-sm {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  &__form-header {
+    display: block;
+  }
+  &__transparentize {
+    background: transparentize($color: $white, $amount: 0.2);
+  }
+  &__forgot-password,
+  &__signup {
+    text-decoration: underline;
+    cursor: pointer;
+    color: map-get($slate, 16);
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+:host {
+  ::ng-deep {
+    .mat-card-actions {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+}

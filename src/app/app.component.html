@@ -1,0 +1,39 @@
+<div class="app__container">
+  <mat-sidenav-container>
+    <!-- side nav  -->
+    <mat-sidenav [autoFocus]="'false'" #sidenav>
+      <app-side-nav (closeSidenav)="sidenav.toggle()"></app-side-nav>
+    </mat-sidenav>
+    <!-- main content  -->
+    <mat-sidenav-content>
+      <main fxLayout="column" fxFlexFill fxLayoutGap="0.7rem">
+        <div>
+          <app-header (activateSidenav)="sidenav.toggle()"></app-header>
+        </div>
+        <div class="app__home-content">
+          <!-- site developer profile icon  -->
+          <div class="app__site-developer-profle">
+            <button (click)="navigateTo('/site-developer-profile', 'biography')" [matTooltipPosition]="'left'"
+              matTooltip="Site developer portfolio" mat-mini-fab color="accent">
+              <mat-icon>dialpad</mat-icon>
+            </button>
+          </div>
+          <router-outlet></router-outlet>
+          <!-- snackbar  -->
+          <div *ngIf="showSnackbar" class="app__snackbar-align" ngStyle.lt-sm="width: 100%">
+            <app-snackbar (onUpdateStatus)="close($event)" [showSnackbar]="showSnackbar" [status]="status"
+              [message]="message">
+            </app-snackbar>
+          </div>
+          <!-- partial loader -->
+          <div *ngIf="activePartialLoader" class="app__partial-loader">
+            <app-partial-loader [loading]="activePartialLoader"></app-partial-loader>
+          </div>
+        </div>
+        <div>
+          <app-footer></app-footer>
+        </div>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

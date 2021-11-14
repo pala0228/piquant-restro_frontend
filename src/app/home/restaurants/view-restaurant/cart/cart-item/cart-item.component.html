@@ -1,0 +1,32 @@
+<div class="cart-item">
+  <div fxLayout="row" fxFlex="100" fxLayoutAlign="space-between center">
+    <div fxFlex="40" class="cart-item__item-name" fxLayout="row" fxLayoutGap="4px" fxLayoutAlign="start center">
+      <div>
+        <span class="cart-item__dot-widget"></span>
+      </div>
+      <div>
+        {{item?.itemName}}
+      </div>
+    </div>
+    <div fxFlex="60" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="4px">
+      <div class="cart-item__item-add u-align-center">
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+          <div>
+            <button (click)="onDecreaseQty(item)" mat-icon-button color="warn" matTooltip="Reduce item quantity">
+              <mat-icon>remove</mat-icon>
+            </button>
+          </div>
+          <div class="cart-item__quantity">{{item?.itemQuantity}}</div>
+          <div>
+            <button (click)="onIncreaseQty(item)" mat-icon-button color="warn" matTooltip="Increase item quantity">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item__item-price">
+        {{item?.itemTotalPrice | currency: 'INR'}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="snackbar__container" fxLayout="row" fxLayoutAlign="start center" *ngIf="showSnackbar">
+  <div>
+    <span class="snackbar__icon">
+      <mat-icon [ngClass]="status" *ngIf="status === 'success'">check_circle</mat-icon>
+      <mat-icon [ngClass]="status" *ngIf="status === 'error'">error</mat-icon>
+      <mat-icon [ngClass]="status" *ngIf="status === 'warning'">warning</mat-icon>
+      <mat-icon [ngClass]="status" *ngIf="status === 'info'">info</mat-icon>
+    </span>
+  </div>
+  <div fxLayout="row wrap">
+    <span class="snackbar__message">{{message}}</span>
+  </div>
+  <div>
+    <span class="snackbar__call-to-action" (click)="onClear()">
+      <mat-icon>clear</mat-icon>
+    </span>
+  </div>
+</div>

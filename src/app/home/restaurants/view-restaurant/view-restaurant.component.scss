@@ -1,0 +1,86 @@
+@import "../../../../assets/styles/abstracts/functions.scss";
+@import "../../../../assets/styles/abstracts/variables.scss";
+
+.view-restaurant {
+  &__header-section {
+    height: 12rem;
+    width: 100%;
+  }
+  &__content-section {
+    height: calc(100% - 192px);
+  }
+  &__image {
+    height: 12rem;
+    width: 100%;
+  }
+  &__image-preview > img {
+    height: 100%;
+    width: 100%;
+  }
+  &__info {
+    height: 12rem;
+    width: 100%;
+    background-color: map-get($slate, 20);
+  }
+  &__offer {
+    height: 12rem;
+    width: 100%;
+    background-color: map-get($slate, 20);
+  }
+  &__title {
+    height: 5rem;
+    color: $white;
+  }
+  &__address {
+    height: 3rem;
+    color: $white;
+  }
+  &__other-info {
+    height: 5rem;
+  }
+  &__rating {
+    border-right: 0.2px solid lightgray;
+  }
+  &__value {
+    min-height: 2rem;
+    color: $white;
+    font-weight: $bold;
+    font-size: 1.1rem;
+  }
+  &__cart-items {
+    position: fixed;
+    right: 10px;
+  }
+  &__menu-item {
+    font-size: 1rem;
+    font-weight: $normal;
+    color: map-get($slate, 16);
+  }
+  &__offer-content {
+    border: 0.5px solid lightgray;
+    border-radius: 0.5rem;
+    color: map-get($slate, 21);
+  }
+  &__menu-types {
+    height: 100%;
+    border-right: 0.5px solid lightgray;
+    text-align: right;
+  }
+  &__menu-items {
+    height: inherit;
+  }
+  &__cart {
+    height: 100%;
+    border-left: 0.5px solid lightgray;
+  }
+}
+sub {
+  color: #97979e;
+}
+:host {
+  ::ng-deep {
+    .mat-card-title {
+      margin-bottom: 0px;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<div class="payment page-container checkout__hide-padding-bottom" fxLayout="column">
+  <!-- page title starts  -->
+  <div class="page-title-widget u-margin-bottom-24">
+    <div class="page-title page-title-align">
+      Payment Process
+    </div>
+  </div>
+  <!-- Info screen to show success/error/warning/information messages-->
+  <div *ngIf="showScreen">
+    <app-info [message]="message" [showScreen]="showScreen" [status]="status"></app-info>
+  </div>
+  <!-- page content  -->
+  <div>
+    <div class="payment__content-hide-and-show">
+      <div>
+        <mat-card fxFlex.lt-sm="100" fxFlex.gt-sm="450px" style="margin: auto;" fxLayout="column"
+          fxLayoutAlign="center center" fxLayoutGap=".5rem">
+          <mat-card-content fxLayout="row" fxLayoutGap="1rem" fxLayoutAlign="space-between start"
+            class="payment__content u-width-100">
+            <div class="payment__image">
+              <div class="payment__image-preview u-height-100" fxLayoutAlign="start center">
+                <img [src]="checkoutData?.restaurantInfo?.image" alt="checkoutData?.restaurantInfo?.restaurantTitle">
+              </div>
+            </div>
+            <div>
+              <mat-card-title>
+                <div>{{checkoutData?.restaurantInfo?.restaurantTitle}}</div>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <div>Total Items({{checkoutData?.cartItems?.length}})</div>
+              </mat-card-subtitle>
+            </div>
+          </mat-card-content>
+          <mat-card-actions class="u-width-100">
+            <button [matTooltip]="'Pay amount'" (click)="onPay()" type="button" class="u-width-100" mat-raised-button
+              color="accent">
+              <mat-icon>credit_card</mat-icon> Pay
+              {{checkoutData.totalPayable | currency: 'INR'}}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

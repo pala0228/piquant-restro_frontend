@@ -1,0 +1,19 @@
+<div class="page-container starters">
+  <!-- Info screen to show success/error/warning/information messages-->
+  <div *ngIf="showScreen && !activeFullLoader">
+    <app-info [message]="message" [showScreen]="showScreen" [status]="status"></app-info>
+  </div>
+  <div *ngIf="starters?.length > 0" ngClass.gt-sm="starters__items">
+    <div *ngFor="let starter of starters">
+      <app-item [item]="starter" (onDeletedItem)="onDeleteItem($event)"
+        (onChangedItemCategory)="onChangedItemCategory($event)"></app-item>
+    </div>
+  </div>
+  <div *ngIf="starters?.length === 0 && !activeFullLoader" fxLayout="row" fxLayoutAlign="center center">
+    No {{ITEM_CATEGORY.STARTERS}} are available.
+  </div>
+  <!-- full loader  -->
+  <div *ngIf="activeFullLoader" class="u-width-100">
+    <app-full-loader [loading]="activeFullLoader"></app-full-loader>
+  </div>
+</div>

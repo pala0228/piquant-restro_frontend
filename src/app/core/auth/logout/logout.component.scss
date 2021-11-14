@@ -1,0 +1,11 @@
+:host {
+  ::ng-deep {
+    .mat-card-header-text {
+      margin: 0px;
+    }
+    .mat-card-actions {
+      margin-bottom: 0px;
+      padding: 0px;
+    }
+  }
+}

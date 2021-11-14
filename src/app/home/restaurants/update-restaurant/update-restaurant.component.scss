@@ -1,0 +1,13 @@
+@import "../../../../assets/styles/abstracts/functions.scss";
+@import "../../../../assets/styles/abstracts/variables.scss";
+
+:host {
+  ::ng-deep {
+    .update-restaurant-hide-content {
+      display: none;
+    }
+    .update-restaurant-hide-padding {
+      padding: 0px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.workExperience {
+  &__header {
+    font-size: 1.3rem;
+  }
+}
+ul li {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,18 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.projects {
+  &__header {
+    font-size: 1.3rem;
+  }
+  &__container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+}
+ul li {
+  margin-bottom: 10px;
+}
+ol li {
+  margin-bottom: 10px;
+}

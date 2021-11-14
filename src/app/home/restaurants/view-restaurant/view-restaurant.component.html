@@ -1,0 +1,92 @@
+<div class="view-restaurant u-bg-white" fxLayout="column" fxFlexFill fxLayoutGap.gt-sm=".5rem" fxLayoutGap.lt-sm="1rem">
+  <!-- top header section  -->
+  <div ngClass.gt-sm="view-restaurant__header-section" class="u-width-100">
+    <div fxLayout.gt-sm="row" fxFlex="100%" fxLayout.lt-sm="column">
+      <!-- cart items counter to open checkout page on mobile mode  -->
+      <div fxHide.gt-sm class="u-width-100 view-restaurant__cart-items u-align-right">
+        <button [disabled]="cartItemsCounter > 0 ? false : true" mat-icon-button (click)="navigateToCheckout()"
+          class="view-restaurant__menu-item">
+          <mat-icon [matBadge]="cartItemsCounter" matBadgePosition="after" matBadgeColor="accent">shopping_cart
+          </mat-icon>
+        </button>
+      </div>
+      <!-- image view  -->
+      <div fxFlex.gt-sm="25" class="view-restaurant__image u-width-100">
+        <div fxFlex class="view-restaurant__image-preview" fxLayoutAlign="start center">
+          <img [src]="restaurantInfo?.image" alt="restaurantInfo?.restaurantTitle">
+        </div>
+      </div>
+      <!-- restaurant information  -->
+      <div fxFlex.gt-sm="60" class="view-restaurant__info u-width-100">
+        <div fxLayout="column" fxLayoutGap.lt-sm="6px">
+          <div class="view-restaurant__title" fxLayout="column" fxLayoutAlign="center center">
+            <div>
+              <mat-card-title>
+                {{restaurantInfo?.restaurantTitle}}
+              </mat-card-title>
+            </div>
+            <div>
+              <sub>{{restaurantInfo?.restaurantSubTitle}}</sub>
+            </div>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="start center" class="view-restaurant__address">
+            <span ngClass.lt-sm="u-padding-8 u-align-center">{{restaurantInfo?.address}}</span>
+          </div>
+          <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center center" class="view-restaurant__other-info">
+            <div fxFlex class="view-restaurant__rating">
+              <div class="view-restaurant__value" fxLayout="row" fxLayoutAlign="center center">
+                <div>
+                  <mat-icon>star_rate</mat-icon>
+                </div>
+                <div>
+                  <span>{{restaurantInfo?.rating}}</span>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <sub>Rating</sub>
+              </div>
+            </div>
+            <div fxFlex class="view-restaurant__delivery-time">
+              <div class="view-restaurant__value" fxLayout="row" fxLayoutAlign="center center">
+                <span>{{restaurantInfo?.deliveryTime}} Min</span>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <sub>Delivery time</sub>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- restaurant offer details  -->
+      <div fxFlex.gt-sm="30" class="view-restaurant__offer u-width-100">
+        <div fxFlex fxLayout="column" fxLayoutGap="1rem" fxLayoutAlign="center center">
+          <div *ngIf="hasAddItemAccess">
+            <button (click)="onAddItem()" [matTooltip]="'Add food item to restaurant'" mat-raised-button>Add
+              Item</button>
+          </div>
+          <div class="view-restaurant__offer-content u-padding-24" fxLayout="row" fxLayoutGap="4px">
+            <span>{{restaurantInfo?.offerPercent}}% off</span>
+            <span>|</span>
+            <span>Use {{restaurantInfo?.offerCode}} code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- items and menu types and cart content  -->
+  <div class="view-restaurant__content-section">
+    <div style="height: 100%" fxLayout.lt-sm="column" fxLayout.gt-sm="row">
+      <div fxFlex.gt-sm="25" fxFlex.lt-sm="100" ngClass.gt-sm="view-restaurant__menu-types">
+        <app-menu-types></app-menu-types>
+      </div>
+      <div fxFlex.gt-sm="50" fxFlex.lt-sm="100" class="view-restaurant__menu-items">
+        <app-items></app-items>
+      </div>
+      <!-- hiding below div on mobile screens  -->
+      <div fxHide.lt-sm fxFlex="25" class="view-restaurant__cart">
+        <app-cart [restaurantInfo]="restaurantInfo"></app-cart>
+      </div>
+    </div>
+  </div>
+</div>

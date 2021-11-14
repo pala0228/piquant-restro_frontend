@@ -1,0 +1,37 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.side-nav {
+  &__menu-item {
+    font-size: 1rem;
+    font-weight: $normal;
+    color: map-get($slate, 23);
+  }
+  &__menu-item-active {
+    color: map-get($slate, 22);
+  }
+  &__menu-item:hover,
+  &__menu-item:active {
+    color: map-get($slate, 22);
+  }
+}
+
+:host {
+  ::ng-deep {
+    .mat-toolbar {
+      background-color: $white;
+      height: 100%;
+      width: 100%;
+      border-bottom: 25px solid map-get($slate, 22);
+    }
+    .mat-icon {
+      font-size: 1.3rem;
+    }
+    .mat-button {
+      width: 100%;
+    }
+    .mat-icon-button[disabled][disabled] {
+      color: $white;
+    }
+  }
+}

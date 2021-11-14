@@ -1,0 +1,41 @@
+@import "../../../assets/styles/abstracts/variables.scss";
+@import "../../../assets/styles/abstracts/functions.scss";
+
+.portfolio-header {
+  &__name {
+    font-size: 20px;
+    font-weight: $normal;
+  }
+  &__widget-align {
+    top: 50%;
+    position: absolute;
+    transform: translate(0, -50%);
+  }
+  &__widget {
+    position: relative;
+    padding-left: 18px;
+  }
+  &__widget:before {
+    content: "";
+    position: absolute;
+    display: block;
+    left: 0px;
+    top: 50%;
+    height: 16px;
+    border: 2px solid map-get($slate, 22);
+    border-radius: 2px;
+    transform: translateY(-50%);
+  }
+  &__menu-item {
+    font-size: 1rem;
+    font-weight: $normal;
+    color: map-get($slate, 23);
+  }
+  &__menu-item-active {
+    color: map-get($slate, 22);
+  }
+  &__menu-item:hover,
+  &__menu-item:active {
+    color: map-get($slate, 22);
+  }
+}

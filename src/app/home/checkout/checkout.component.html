@@ -1,0 +1,12 @@
+<div class="checkout">
+  <!-- cart items  -->
+  <div class="u-bg-white" [ngClass]="toggleContent ? 'checkout__cursor-pointer close' : 'open'"
+    (click)="showCartItems()">
+    <app-cart-items [restaurantInfo]="restaurantInfo" (paymentProcessInput)="activatePayment($event)"></app-cart-items>
+  </div>
+  <!-- payment information -->
+  <div class="u-bg-white u-margin-top-16" *ngIf="paymentProcessInput"
+    [ngClass]="toggleContent ? 'open' : 'checkout__cursor-pointer close'" (click)="showPaymentProcess()">
+    <app-payment [paymentProcessInput]="paymentProcessInput"></app-payment>
+  </div>
+</div>

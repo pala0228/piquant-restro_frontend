@@ -1,0 +1,49 @@
+@import "../../../../assets/styles/abstracts/variables.scss";
+@import "../../../../assets/styles/abstracts/functions.scss";
+
+.signup {
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  background-blend-mode: multiply;
+  background-origin: border-box;
+  overflow: hidden;
+  z-index: 1;
+  position: relative;
+  &__form {
+    top: 50%;
+    left: 75%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  &__form-sm {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+  }
+  &__user-type-height {
+    height: 30px;
+  }
+  &__form-header {
+    display: block;
+  }
+  &__center-alignment {
+    height: 55px;
+    line-height: 55px;
+    white-space: nowrap;
+  }
+  &__transparentize {
+    background: transparentize($color: $white, $amount: 0.2);
+  }
+  &__scrollview {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+::ng-deep {
+  .my-tooltip {
+    white-space: pre-line;
+    font-size: 11px;
+  }
+}

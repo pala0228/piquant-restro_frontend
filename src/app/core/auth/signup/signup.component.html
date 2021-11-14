@@ -1,0 +1,178 @@
+<div class="signup u-bg-white page-container" [style.background-image]="'url('+ backgroundImage.url +')'">
+  <!-- sign up form start from here  -->
+  <div ngClass.gt-sm="signup__form" class="u-width-100 u-padding-16" fxFlex="650px" fxFlex.lt-sm="100%"
+    ngClass.lt-sm="signup__form-sm">
+    <form [formGroup]="signupForm">
+      <div>
+        <mat-card class="mat-elevation-z8 signup__transparentize">
+          <!-- card header starts -->
+          <mat-card-header class="signup__form-header u-align-center">
+            <mat-card-title>
+              Signup
+            </mat-card-title>
+          </mat-card-header>
+          <!-- Info screen to show success/error/warning/information messages-->
+          <div *ngIf="showScreen">
+            <app-info [message]="message" [showScreen]="showScreen" [status]="status"></app-info>
+          </div>
+          <!-- card content starts  -->
+          <mat-card-content fxLayout="column" ngClass.lt-sm="signup__scrollview">
+            <div fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center" fxLayout.lt-sm="column">
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>First Name</mat-label>
+                  <input required matInput formControlName="firstName" type="text">
+                  <mat-error *ngIf="signupForm.controls['firstName'].errors?.required">
+                    Mandatory feild: First name.
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls['firstName'].errors?.pattern">
+                    Invalid first name, Only alphanumeric data is allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Last Name</mat-label>
+                  <input matInput required formControlName="lastName" type="text">
+                  <mat-error *ngIf="signupForm.controls['lastName'].errors?.required">
+                    PMandatory feild: Last name.
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls['lastName'].errors?.pattern">
+                    Invalid first name, Only alphanumeric data is allowed.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center" fxLayout.lt-sm="column">
+              <div fxFlex="45" fxFlex.lt-sm="100" fxLayout="column" fxLayoutAlign="start start">
+                <div class="signup__user-type-height">
+                  <label class="signup__center-alignment">User type:</label>
+                </div>
+                <div>
+                  <mat-radio-group class="u-float-right signup__center-alignment" formControlName="userType">
+                    <mat-radio-button [matTooltip]="getUserTypeTooltip('user')" [matTooltipClass]="'my-tooltip'"
+                      value="User" color="primary" class="u-margin-right-8">
+                      User
+                    </mat-radio-button>
+                    <mat-radio-button [matTooltip]="getUserTypeTooltip('admin')" [matTooltipClass]="'my-tooltip'"
+                      value="Admin" color="primary" class="u-margin-right-8">Admin</mat-radio-button>
+                    <mat-radio-button [matTooltip]="getUserTypeTooltip('superAdmin')" [matTooltipClass]="'my-tooltip'"
+                      value="SuperAdmin" color="primary">Super Admin</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+                <mat-error
+                  *ngIf="signupForm.controls['userType'].errors?.required && (signupForm.controls['userType']?.touched || signupForm.controls['userType']?.dirty)">
+                  Mandatory feild: User type.
+                </mat-error>
+              </div>
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field color="accent" appearance="fill" class="u-width-100">
+                  <mat-label>DOB</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="dob">
+                  <mat-hint>Format: DD/MM/YYYY</mat-hint>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker touchUi #picker></mat-datepicker>
+                  <mat-error *ngIf="signupForm.controls['dob'].errors?.required">
+                    Mandatory feild: Date of birth.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center" fxLayout.lt-sm="column">
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Email Address</mat-label>
+                  <input matInput required formControlName="email" type="text">
+                  <mat-error *ngIf="signupForm.controls['email'].errors?.required">
+                    Mandatory feild: Email.
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls['email'].errors?.email">
+                    Invalid email Id, Please enter valid email Id.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Password</mat-label>
+                  <input matInput name="password" required formControlName="password"
+                    [type]="toggleEye ? 'text' : 'password'">
+                  <mat-icon style="cursor: pointer;" matSuffix (click)="toggleEye = !toggleEye">
+                    {{toggleEye ? 'visibility' : 'visibility_off'}}
+                  </mat-icon>
+                  <mat-error *ngIf="signupForm.controls['password'].errors?.required">
+                    Mandatory feild: Password.
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls['password'].errors?.pattern">
+                    Invalid password. Acceptable pattern is - Min 8 characters, At least one upper case, lower case,
+                    digit
+                    and special character.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout.gt-sm="row" fxLayoutAlign.gt-sm="space-between center" fxLayout.lt-sm="column">
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Confirm Password</mat-label>
+                  <input matInput formControlName="confirmPassword" required appConfirmPasswordValidator="password"
+                    type="password">
+                  <mat-error
+                    *ngIf="signupForm.controls['confirmPassword'].errors?.required && (signupForm.controls['confirmPassword']?.touched)">
+                    Mandatory feild: Confirm password.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="signupForm.controls['confirmPassword'].errors?.notEqual && (signupForm.controls['confirmPassword']?.touched)">
+                    Password and confirm password does not match.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxFlex="45" fxFlex.lt-sm="100">
+                <mat-form-field class="u-width-100">
+                  <mat-label>Contact Number</mat-label>
+                  <span matPrefix>+91&nbsp;</span>
+                  <input matInput required formControlName="contactNumber" type="text">
+                  <mat-error *ngIf="signupForm.controls['contactNumber'].errors?.required">
+                    Mandatory feild: Contact number.
+                  </mat-error>
+                  <mat-error *ngIf="signupForm.controls['contactNumber'].errors?.pattern">
+                    Invalid contact number, Only numeric data is allowed.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="signupForm.controls['contactNumber'].errors?.maxlength || signupForm.controls['contactNumber'].errors?.minlength">
+                    Invalid contact number, Min and Max 10 digits can be acceptable.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="u-margin-top-16">
+              <mat-form-field class="u-width-100" appearance="outline">
+                <mat-label>Address</mat-label>
+                <textarea required formControlName="address" matInput #address maxlength="200"></textarea>
+                <mat-hint align="start">Your residential address: Viallage/City name, Area name, District
+                  name, State.
+                  Pincode.</mat-hint>
+                <mat-hint align="end">{{address.value?.length || 0 }}/200</mat-hint>
+                <mat-error *ngIf="signupForm.controls['address'].errors?.required">
+                  Mandatory feild: Address.
+                </mat-error>
+                <mat-error *ngIf="signupForm.controls['address'].errors?.maxlength">
+                  Address lenght should not cross 200 characters.
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </mat-card-content>
+          <!-- card action buttons starts  -->
+          <mat-card-actions fxLayoutAlign="space-between center">
+            <div>
+              <button type="button" (click)="onClear()" color="accent" mat-button matTooltip="Clear">Clear</button>
+            </div>
+            <div fxLayoutAlign="end center">
+              <button type="submit" [matTooltip]="'Proceed to register new account'" (click)="onSignup()" color="accent"
+                matTooltip="Signup" mat-raised-button>Signup</button>
+            </div>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </form>
+  </div>
+</div>

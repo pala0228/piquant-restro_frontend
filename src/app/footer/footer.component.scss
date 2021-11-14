@@ -1,0 +1,16 @@
+@import "../../assets/styles/abstracts/variables.scss";
+.header {
+  &__text {
+    font-size: 0.8rem;
+  }
+}
+
+:host {
+  ::ng-deep {
+    .mat-toolbar {
+      background-color: #29303b;
+      color: $white;
+      height: 80px;
+    }
+  }
+}
